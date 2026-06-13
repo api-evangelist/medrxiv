@@ -1,0 +1,94 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/medrxiv/main/json-schema/preprint-detail.json",
+  "title": "PreprintDetail",
+  "description": "Metadata for a single medRxiv or bioRxiv preprint",
+  "type": "object",
+  "properties": {
+    "doi": {
+      "type": "string",
+      "description": "Digital Object Identifier for the preprint",
+      "pattern": "^10\\.\\d{4,}/.*$",
+      "example": "10.1101/2020.01.15.20017285"
+    },
+    "title": {
+      "type": "string",
+      "description": "Title of the preprint",
+      "example": "Impact of intervention on disease transmission in urban settings"
+    },
+    "authors": {
+      "type": "string",
+      "description": "Semicolon-separated list of author names in 'Surname, Firstname' format",
+      "example": "Smith, John; Jones, Alice; Brown, Kevin"
+    },
+    "author_corresponding": {
+      "type": "string",
+      "description": "Name of the corresponding author",
+      "example": "Smith, John"
+    },
+    "author_corresponding_institution": {
+      "type": "string",
+      "description": "Institution affiliation of the corresponding author",
+      "example": "Department of Epidemiology, University of Medicine"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date the preprint was posted in YYYY-MM-DD format",
+      "example": "2020-01-15"
+    },
+    "version": {
+      "type": "string",
+      "description": "Version number of this preprint (first submission is '1')",
+      "pattern": "^[0-9]+$",
+      "example": "1"
+    },
+    "type": {
+      "type": "string",
+      "description": "Type classification of the research",
+      "example": "new result"
+    },
+    "license": {
+      "type": "string",
+      "description": "Creative Commons or other license under which the preprint is published",
+      "enum": [
+        "cc_by",
+        "cc_by_nc",
+        "cc_by_nd",
+        "cc_by_nc_nd",
+        "cc_by_nc_sa",
+        "cc0",
+        "none"
+      ],
+      "example": "cc_by"
+    },
+    "category": {
+      "type": "string",
+      "description": "Subject category of the preprint",
+      "example": "infectious diseases"
+    },
+    "jatsxml": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to the JATS XML source file for the preprint",
+      "example": "https://www.medrxiv.org/content/early/2020/01/15/2020.01.15.20017285.source.xml"
+    },
+    "abstract": {
+      "type": "string",
+      "description": "Full abstract text of the preprint",
+      "example": "Background: This study investigates the impact of..."
+    },
+    "published": {
+      "type": "string",
+      "description": "Published DOI if the preprint has been published in a peer-reviewed journal, or 'NA' if not yet published",
+      "example": "NA"
+    },
+    "server": {
+      "type": "string",
+      "description": "Server where the preprint is hosted",
+      "enum": ["medrxiv", "biorxiv"],
+      "example": "medrxiv"
+    }
+  },
+  "required": ["doi", "title", "authors", "date", "version", "license", "category", "abstract", "server"]
+}

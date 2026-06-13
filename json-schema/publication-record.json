@@ -1,0 +1,75 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/medrxiv/main/json-schema/publication-record.json",
+  "title": "PublicationRecord",
+  "description": "Record linking a medRxiv/bioRxiv preprint to its published peer-reviewed journal article",
+  "type": "object",
+  "properties": {
+    "biorxiv_doi": {
+      "type": "string",
+      "description": "DOI of the preprint on bioRxiv or medRxiv",
+      "pattern": "^10\\.\\d{4,}/.*$",
+      "example": "10.1101/2021.04.29.21256344"
+    },
+    "published_doi": {
+      "type": "string",
+      "description": "DOI of the corresponding published journal article",
+      "pattern": "^10\\.\\d{4,}/.*$",
+      "example": "10.1016/j.cell.2021.06.001"
+    },
+    "published_journal": {
+      "type": "string",
+      "description": "Name of the journal where the article was published",
+      "example": "Cell"
+    },
+    "preprint_platform": {
+      "type": "string",
+      "description": "The preprint platform where the paper was posted",
+      "enum": ["bioRxiv", "medRxiv"],
+      "example": "medRxiv"
+    },
+    "preprint_title": {
+      "type": "string",
+      "description": "Title of the preprint",
+      "example": "Efficacy of novel therapeutic approach in clinical trial"
+    },
+    "preprint_authors": {
+      "type": "string",
+      "description": "Authors of the preprint in semicolon-separated format",
+      "example": "Johnson, M; Williams, P; Davis, S"
+    },
+    "preprint_category": {
+      "type": "string",
+      "description": "Subject category of the preprint",
+      "example": "clinical trials"
+    },
+    "preprint_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date the preprint was posted in YYYY-MM-DD format",
+      "example": "2021-04-29"
+    },
+    "published_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date the peer-reviewed article was published",
+      "example": "2021-06-15"
+    },
+    "preprint_abstract": {
+      "type": "string",
+      "description": "Abstract of the preprint",
+      "example": "Introduction: We conducted a randomized controlled trial..."
+    },
+    "preprint_author_corresponding": {
+      "type": "string",
+      "description": "Name of the corresponding author",
+      "example": "Johnson, M"
+    },
+    "preprint_author_corresponding_institution": {
+      "type": "string",
+      "description": "Institution affiliation of the corresponding author",
+      "example": "Clinical Research Institute"
+    }
+  },
+  "required": ["biorxiv_doi", "published_doi", "published_journal", "preprint_platform", "preprint_title", "preprint_date", "published_date"]
+}

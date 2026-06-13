@@ -1,0 +1,62 @@
+{
+  "title": "Get medRxiv Preprint by DOI",
+  "description": "Retrieve all versions of a specific preprint using its DOI. Returns metadata for each version that has been posted.",
+  "request": {
+    "method": "GET",
+    "url": "https://api.medrxiv.org/details/medrxiv/10.1101/2021.04.29.21256344/na/json",
+    "parameters": {
+      "server": "medrxiv",
+      "doi": "10.1101/2021.04.29.21256344",
+      "format": "json"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "messages": [
+        {
+          "status": "ok",
+          "interval": "10.1101/2021.04.29.21256344",
+          "cursor": "0",
+          "count": 2,
+          "count_new_papers": 1,
+          "total": 2
+        }
+      ],
+      "collection": [
+        {
+          "doi": "10.1101/2021.04.29.21256344",
+          "title": "Safety and Efficacy of the BNT162b2 mRNA Covid-19 Vaccine through 6 Months",
+          "authors": "Thomas, SJ; Moreira, ED; Kitchin, N; Absalon, J; Gurtman, A; Lockhart, S; Perez, JL; Pérez Marc, G; Polack, FP; Zerbini, C; Bailey, R; Swanson, KA; Xu, X; Roychoudhury, S; Koury, K; Chakraborty, S; Seamons, OP; Xie, P; Shi, M; Yang, X; Absalon, J",
+          "author_corresponding": "Thomas, SJ",
+          "author_corresponding_institution": "Pfizer Inc",
+          "date": "2021-04-30",
+          "version": "1",
+          "type": "new result",
+          "license": "cc_by_nc_nd",
+          "category": "infectious diseases",
+          "jatsxml": "https://www.medrxiv.org/content/early/2021/04/30/2021.04.29.21256344.source.xml",
+          "abstract": "Background: The BNT162b2 mRNA Covid-19 vaccine was found to be safe and 95% effective against Covid-19 through up to 2 months after the second dose.",
+          "published": "10.1056/NEJMoa2110345",
+          "server": "medrxiv"
+        },
+        {
+          "doi": "10.1101/2021.04.29.21256344",
+          "title": "Safety and Efficacy of the BNT162b2 mRNA Covid-19 Vaccine through 6 Months",
+          "authors": "Thomas, SJ; Moreira, ED; Kitchin, N; Absalon, J; Gurtman, A; Lockhart, S; Perez, JL; Pérez Marc, G; Polack, FP; Zerbini, C; Bailey, R; Swanson, KA; Xu, X; Roychoudhury, S; Koury, K; Chakraborty, S; Seamons, OP; Xie, P; Shi, M; Yang, X",
+          "author_corresponding": "Thomas, SJ",
+          "author_corresponding_institution": "Pfizer Inc",
+          "date": "2021-09-08",
+          "version": "2",
+          "type": "confirmatory result",
+          "license": "cc_by_nc_nd",
+          "category": "infectious diseases",
+          "jatsxml": "https://www.medrxiv.org/content/early/2021/09/08/2021.04.29.21256344.source.xml",
+          "abstract": "Background: Randomized controlled trials have demonstrated vaccine safety and high efficacy against Covid-19. We report safety and efficacy of BNT162b2 through up to 6 months of follow-up.",
+          "published": "10.1056/NEJMoa2110345",
+          "server": "medrxiv"
+        }
+      ]
+    }
+  }
+}

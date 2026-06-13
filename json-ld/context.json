@@ -1,0 +1,132 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "medrxiv": "https://www.medrxiv.org/ontology/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "bibo": "http://purl.org/ontology/bibo/",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "PreprintDetail": "medrxiv:PreprintDetail",
+    "PublicationRecord": "medrxiv:PublicationRecord",
+    "UsageRecord": "medrxiv:UsageRecord",
+
+    "doi": {
+      "@id": "bibo:doi",
+      "@type": "xsd:string"
+    },
+    "title": {
+      "@id": "dcterms:title",
+      "@type": "xsd:string"
+    },
+    "authors": {
+      "@id": "dcterms:creator",
+      "@type": "xsd:string"
+    },
+    "author_corresponding": {
+      "@id": "medrxiv:correspondingAuthor",
+      "@type": "xsd:string"
+    },
+    "author_corresponding_institution": {
+      "@id": "schema:affiliation",
+      "@type": "xsd:string"
+    },
+    "date": {
+      "@id": "dcterms:date",
+      "@type": "xsd:date"
+    },
+    "version": {
+      "@id": "schema:version",
+      "@type": "xsd:string"
+    },
+    "type": {
+      "@id": "dcterms:type",
+      "@type": "xsd:string"
+    },
+    "license": {
+      "@id": "dcterms:license",
+      "@type": "xsd:string"
+    },
+    "category": {
+      "@id": "dcterms:subject",
+      "@type": "xsd:string"
+    },
+    "jatsxml": {
+      "@id": "medrxiv:jatsXml",
+      "@type": "@id"
+    },
+    "abstract": {
+      "@id": "dcterms:abstract",
+      "@type": "xsd:string"
+    },
+    "published": {
+      "@id": "medrxiv:publishedDoi",
+      "@type": "xsd:string"
+    },
+    "server": {
+      "@id": "medrxiv:server",
+      "@type": "xsd:string"
+    },
+    "biorxiv_doi": {
+      "@id": "medrxiv:preprintDoi",
+      "@type": "xsd:string"
+    },
+    "published_doi": {
+      "@id": "medrxiv:journalDoi",
+      "@type": "xsd:string"
+    },
+    "published_journal": {
+      "@id": "medrxiv:publishedJournal",
+      "@type": "xsd:string"
+    },
+    "preprint_platform": {
+      "@id": "medrxiv:preprintPlatform",
+      "@type": "xsd:string"
+    },
+    "preprint_title": {
+      "@id": "medrxiv:preprintTitle",
+      "@type": "xsd:string"
+    },
+    "preprint_authors": {
+      "@id": "medrxiv:preprintAuthors",
+      "@type": "xsd:string"
+    },
+    "preprint_category": {
+      "@id": "medrxiv:preprintCategory",
+      "@type": "xsd:string"
+    },
+    "preprint_date": {
+      "@id": "medrxiv:preprintDate",
+      "@type": "xsd:date"
+    },
+    "published_date": {
+      "@id": "medrxiv:publishedDate",
+      "@type": "xsd:date"
+    },
+    "preprint_abstract": {
+      "@id": "medrxiv:preprintAbstract",
+      "@type": "xsd:string"
+    },
+    "preprint_author_corresponding": {
+      "@id": "medrxiv:preprintCorrespondingAuthor",
+      "@type": "xsd:string"
+    },
+    "preprint_author_corresponding_institution": {
+      "@id": "medrxiv:preprintCorrespondingInstitution",
+      "@type": "xsd:string"
+    },
+    "abstract_views": {
+      "@id": "schema:interactionCount",
+      "@type": "xsd:integer"
+    },
+    "full_text_views": {
+      "@id": "medrxiv:fullTextViews",
+      "@type": "xsd:integer"
+    },
+    "pdf_downloads": {
+      "@id": "medrxiv:pdfDownloads",
+      "@type": "xsd:integer"
+    }
+  }
+}

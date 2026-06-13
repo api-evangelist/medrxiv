@@ -1,0 +1,47 @@
+{
+  "title": "Get medRxiv Preprints by Date Range",
+  "description": "Retrieve preprint metadata for all papers posted to medRxiv within a date range, paginated at 100 results per call.",
+  "request": {
+    "method": "GET",
+    "url": "https://api.medrxiv.org/details/medrxiv/2020-01-01/2020-01-31/0/json",
+    "parameters": {
+      "server": "medrxiv",
+      "interval": "2020-01-01/2020-01-31",
+      "cursor": 0,
+      "format": "json"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "messages": [
+        {
+          "status": "ok",
+          "interval": "2020-01-01/2020-01-31",
+          "cursor": "0",
+          "count": 100,
+          "count_new_papers": 95,
+          "total": 342
+        }
+      ],
+      "collection": [
+        {
+          "doi": "10.1101/2020.01.15.20017285",
+          "title": "Characteristics of and Important Lessons From the Coronavirus Disease 2019 (COVID-19) Outbreak in China",
+          "authors": "Zu, ZY; Jiang, MD; Xu, PP; Chen, W; Ni, QQ; Lu, GM; Zhang, LJ",
+          "author_corresponding": "Zhang, LJ",
+          "author_corresponding_institution": "Department of Radiology, Nanjing Drum Tower Hospital",
+          "date": "2020-01-20",
+          "version": "1",
+          "type": "new result",
+          "license": "cc_by",
+          "category": "infectious diseases",
+          "jatsxml": "https://www.medrxiv.org/content/early/2020/01/20/2020.01.15.20017285.source.xml",
+          "abstract": "Background: Since December 2019, coronavirus disease 2019 (COVID-19) has emerged in Wuhan and rapidly spread throughout China. We summarized demographic and clinical features, treatment and outcomes of COVID-19 patients.",
+          "published": "NA",
+          "server": "medrxiv"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,118 @@
+name: medRxiv API Vocabulary
+description: >
+  Key terms and concepts used in the medRxiv REST API for accessing preprint
+  metadata, publication records, and usage statistics for health science research.
+version: "1.0.0"
+terms:
+  - term: preprint
+    definition: >
+      A version of a scholarly paper that precedes formal peer review and
+      publication in a peer-reviewed scientific journal. medRxiv hosts
+      preprints in health sciences, medicine, and clinical research.
+
+  - term: DOI
+    definition: >
+      Digital Object Identifier. A persistent identifier assigned to a preprint
+      or published article, formatted as '10.[registrant]/[suffix]' (e.g.,
+      10.1101/2020.01.15.20017285). medRxiv DOIs use the 10.1101 prefix.
+
+  - term: server
+    definition: >
+      The preprint server parameter used in API calls. Valid values are
+      'medrxiv' (health sciences) and 'biorxiv' (life sciences). Both servers
+      share a common API infrastructure.
+
+  - term: interval
+    definition: >
+      The time range or count parameter for querying preprints. Accepts:
+      (1) two YYYY-MM-DD dates separated by '/' for a date range,
+      (2) a numeric integer for the N most recent posts,
+      (3) a number followed by 'd' for the most recent N days (e.g., '7d').
+
+  - term: cursor
+    definition: >
+      Pagination offset for result sets. Results are returned in batches of
+      100. To retrieve the next page, increment the cursor by 100. Default
+      is 0 (first page).
+
+  - term: version
+    definition: >
+      The version number of a preprint. Authors may post revised versions of
+      their preprints to medRxiv. Version '1' is the initial submission; each
+      revision increments the version number.
+
+  - term: category
+    definition: >
+      The subject area or discipline assigned to a preprint. medRxiv categories
+      include infectious diseases, oncology, cardiology, epidemiology,
+      clinical trials, and other health science specialties.
+
+  - term: license
+    definition: >
+      The copyright license under which a preprint is published. Common values
+      include cc_by (Creative Commons Attribution), cc_by_nc (Attribution
+      NonCommercial), cc_by_nd (Attribution NoDerivatives), cc0 (public domain),
+      and none (all rights reserved).
+
+  - term: type
+    definition: >
+      Classification of the type of research reported in a preprint. Examples
+      include 'new result', 'confirmatory result', 'contradictory result',
+      and 'new findings'.
+
+  - term: jatsxml
+    definition: >
+      URL pointing to the JATS (Journal Article Tag Suite) XML source file for
+      a preprint. JATS is a standard XML format for representing scientific
+      articles.
+
+  - term: published
+    definition: >
+      The DOI of the corresponding peer-reviewed journal article if the preprint
+      has been published. Returns 'NA' if the preprint has not yet been published
+      in a journal.
+
+  - term: abstract
+    definition: >
+      The full text of the preprint's abstract as submitted by the authors.
+      Typically includes sections such as Background, Methods, Results, and
+      Conclusions for medical research papers.
+
+  - term: author_corresponding
+    definition: >
+      The name of the corresponding author for a preprint, formatted as
+      'Surname, Firstname'. This is the primary contact for the submission.
+
+  - term: author_corresponding_institution
+    definition: >
+      The institutional affiliation of the corresponding author, typically
+      including department, university or hospital name, and location.
+
+  - term: biorxiv_doi
+    definition: >
+      The DOI assigned to the preprint on bioRxiv or medRxiv. Used in
+      publication records to link to the journal-published version.
+
+  - term: published_doi
+    definition: >
+      The DOI of the peer-reviewed journal article corresponding to a preprint.
+      Used in publication records returned by the /pubs endpoint.
+
+  - term: preprint_platform
+    definition: >
+      Indicates whether a publication record originates from 'bioRxiv' or
+      'medRxiv'. Used in the /pubs endpoint response to distinguish between
+      the two preprint servers.
+
+  - term: usage statistics
+    definition: >
+      Aggregate metrics about how preprints are being accessed, including
+      abstract views, full-text HTML views, and PDF downloads. Available
+      via the /usage endpoint with monthly ('m') or yearly ('y') granularity.
+
+  - term: pagination
+    definition: >
+      The mechanism for retrieving large result sets in batches. The API
+      returns up to 100 records per call. The messages array includes a
+      'total' field indicating the total number of matching records, and
+      the cursor can be incremented to retrieve successive pages.

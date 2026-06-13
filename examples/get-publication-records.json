@@ -1,0 +1,44 @@
+{
+  "title": "Get Publication Records Linking Preprints to Journal Articles",
+  "description": "Retrieve records that link medRxiv preprints to their corresponding published peer-reviewed journal articles.",
+  "request": {
+    "method": "GET",
+    "url": "https://api.biorxiv.org/pubs/medrxiv/2021-01-01/2021-03-31/0",
+    "parameters": {
+      "server": "medrxiv",
+      "interval": "2021-01-01/2021-03-31",
+      "cursor": 0
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "messages": [
+        {
+          "status": "ok",
+          "interval": "2021-01-01/2021-03-31",
+          "cursor": "0",
+          "count": 100,
+          "count_new_papers": 0,
+          "total": 1450
+        }
+      ],
+      "collection": [
+        {
+          "biorxiv_doi": "10.1101/2020.03.04.20030999",
+          "published_doi": "10.1056/NEJMoa2006100",
+          "published_journal": "New England Journal of Medicine",
+          "preprint_platform": "medRxiv",
+          "preprint_title": "Hydroxychloroquine in Nonhospitalized Adults With Early COVID-19",
+          "preprint_authors": "Skipper, CP; Pastick, KA; Engen, NW; Bangdiwala, AS; Abassi, M; Lofgren, SM; Williams, DA; Okafor, EC; Pullen, MF; Nicol, MR; Nascene, AA; Hullsiek, KH; Cheng, MP; Luke, D; Usher, MG; Reno, R; Boulware, DR; Rajasingham, R",
+          "preprint_category": "infectious diseases",
+          "preprint_date": "2020-04-10",
+          "published_date": "2021-01-15",
+          "preprint_abstract": "Background: Hydroxychloroquine has been widely used as COVID-19 post-exposure prophylaxis and early treatment, but clinical evidence is lacking.",
+          "preprint_author_corresponding": "Boulware, DR",
+          "preprint_author_corresponding_institution": "University of Minnesota"
+        }
+      ]
+    }
+  }
+}

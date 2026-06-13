@@ -1,0 +1,28 @@
+rateLimits:
+  - api: medRxiv REST API
+    description: >-
+      The medRxiv API does not publish a formal rate limit policy. The API is
+      free and open with no authentication required, and no hard numeric limits
+      are documented. Results are paginated with a maximum of 100 records per
+      response; consumers must use the cursor parameter to iterate through larger
+      result sets. Cold Spring Harbor Laboratory expects responsible, low-frequency
+      use rather than high-volume bulk crawling. Users conducting large-scale data
+      collection are encouraged to use the bulk data snapshots or contact medRxiv
+      directly to coordinate access patterns that avoid overloading the service.
+    unauthenticated:
+      requests: no hard limit documented; responsible use expected
+    authenticated:
+      requests: not applicable — no authentication system
+    pagination:
+      pageSize: 100
+      mechanism: cursor parameter (integer offset, default 0)
+    outputFormats:
+      - json
+      - xml
+    overLimit: not formally documented; service may throttle abusive requests
+    url: https://api.medrxiv.org/
+    notes:
+      - The API shares infrastructure with bioRxiv (api.biorxiv.org); the same
+        guidance applies to both servers.
+      - For high-volume research use, consider bulk data exports or snapshot
+        downloads where available.

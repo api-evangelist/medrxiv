@@ -1,0 +1,29 @@
+finops:
+  description: >-
+    The medRxiv API is provided free of charge by Cold Spring Harbor Laboratory
+    as part of its mission to accelerate open-access scientific communication in
+    the health sciences. There are no subscription fees, per-request charges, or
+    tiered pricing structures. Access requires no registration, API key, or
+    payment of any kind. The service is funded through institutional support and
+    grants to Cold Spring Harbor Laboratory.
+  cost: $0
+  model: free open-access scholarly infrastructure
+  registration:
+    - name: No Registration Required
+      description: >-
+        The medRxiv API is fully open. Any HTTP client can query the API
+        endpoints directly without obtaining credentials or registering an
+        account. There is no freemium or paid tier.
+      url: https://api.medrxiv.org/
+      cost: free
+  notes:
+    - medRxiv is a non-profit preprint server operated by Cold Spring Harbor
+      Laboratory; all public API access is provided at no cost.
+    - No SLA or uptime guarantee is published for the free public API.
+    - The API is shared infrastructure with bioRxiv; both are accessible under
+      the same no-cost, no-auth model.
+    - Large-scale commercial or research bulk data users should consult Cold
+      Spring Harbor Laboratory regarding appropriate usage to avoid disrupting
+      the shared service.
+    - The medRxiv site and API content are made available under the terms
+      described at https://www.medrxiv.org/about-medrxiv.

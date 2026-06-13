@@ -1,0 +1,19 @@
+plans:
+  - name: Free Public Access
+    description: >-
+      The medRxiv API is freely available to all users with no subscription fee,
+      registration, or authentication required. Operated by Cold Spring Harbor
+      Laboratory as an open-access preprint server for health sciences, the API
+      provides programmatic access to preprint metadata and publication information
+      as a public scholarly resource. No API key or account is needed to begin
+      making requests.
+    type: free
+    url: https://api.medrxiv.org/
+    features:
+      - Full access to medRxiv preprint metadata via REST API
+      - Date-range queries returning up to 100 results per paginated call
+      - DOI-based individual manuscript lookup
+      - JSON and XML (OAI-PMH) output formats
+      - Metadata includes title, authors, abstract, DOI, license, and category
+      - No registration or API key required
+      - Shared infrastructure with bioRxiv API at api.biorxiv.org

@@ -1,0 +1,30 @@
+generated: '2026-07-11'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: www.medrxiv.org
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 19 19:32:53 2026 GMT
+  hsts: false
+- host: api.medrxiv.org
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct  4 15:58:56 2026 GMT
+  hsts: false
+- host: api.biorxiv.org
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Aug 31 20:53:32 2026 GMT
+  hsts: false
+domains:
+- domain: medrxiv.org
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: false
+- domain: biorxiv.org
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: false

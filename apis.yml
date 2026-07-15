@@ -50,6 +50,8 @@ apis:
         url: https://www.medrxiv.org/about-medrxiv
         email: ""
 common:
+  - type: AgenticAccess
+    url: agentic-access/medrxiv-agentic-access.yml
   - type: DomainSecurity
     url: security/medrxiv-domain-security.yml
   - type: Website

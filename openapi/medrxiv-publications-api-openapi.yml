@@ -1,0 +1,217 @@
+openapi: 3.0.3
+info:
+  title: medRxiv REST Details Publications API
+  description: 'REST API providing programmatic access to preprint metadata, publication information, and usage statistics for health science research papers posted to medRxiv. Supports retrieval by date range, DOI lookup, and pagination through result sets. Returns metadata including title, authors, abstract, DOI, license, and subject category. The same API also supports bioRxiv preprints via the server parameter.
+
+    '
+  version: 1.0.0
+  contact:
+    name: medRxiv Support
+    url: https://www.medrxiv.org/about-medrxiv
+  license:
+    name: medRxiv Terms of Use
+    url: https://www.medrxiv.org/about-medrxiv
+servers:
+- url: https://api.medrxiv.org
+  description: medRxiv API server (details endpoint)
+- url: https://api.biorxiv.org
+  description: bioRxiv/medRxiv API server (pubs endpoint)
+tags:
+- name: Publications
+  description: Retrieve publication records linking preprints to published articles
+paths:
+  /pubs/{server}/{interval}/{cursor}:
+    get:
+      operationId: getPublications
+      summary: Retrieve published article records by date interval
+      description: 'Returns records linking medRxiv/bioRxiv preprints to their corresponding published journal articles. Supports date range, N most recent, or last N days queries.
+
+        '
+      tags:
+      - Publications
+      parameters:
+      - name: server
+        in: path
+        required: true
+        description: 'The preprint server. Use ''medrxiv'' or ''biorxiv''.
+
+          '
+        schema:
+          type: string
+          enum:
+          - medrxiv
+          - biorxiv
+        example: medrxiv
+      - name: interval
+        in: path
+        required: true
+        description: 'The date interval or count. Two YYYY-MM-DD dates separated by ''/'', a number for N most recent articles, or a number+''d'' for last N days.
+
+          '
+        schema:
+          type: string
+        example: 2021-01-01/2021-03-31
+      - name: cursor
+        in: path
+        required: true
+        description: Starting position for pagination (default 0, increments of 100).
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+        example: 0
+      responses:
+        '200':
+          description: Successful response with publication records
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicationsResponse'
+        '400':
+          description: Bad request - invalid parameters
+        '404':
+          description: No results found
+  /pubs/{server}/{doi}/na/{format}:
+    get:
+      operationId: getPublicationByDoi
+      summary: Retrieve publication record by DOI
+      description: 'Returns the publication record for a specific preprint identified by DOI, linking the preprint to its published journal article if available.
+
+        '
+      tags:
+      - Publications
+      parameters:
+      - name: server
+        in: path
+        required: true
+        description: The preprint server ('medrxiv' or 'biorxiv').
+        schema:
+          type: string
+          enum:
+          - medrxiv
+          - biorxiv
+        example: medrxiv
+      - name: doi
+        in: path
+        required: true
+        description: The DOI of the preprint (without 'https://doi.org/' prefix).
+        schema:
+          type: string
+        example: 10.1101/2021.04.29.21256344
+      - name: format
+        in: path
+        required: true
+        description: Response format ('json' or 'xml').
+        schema:
+          type: string
+          enum:
+          - json
+          - xml
+        example: json
+      responses:
+        '200':
+          description: Successful response with publication record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicationsResponse'
+        '404':
+          description: Publication record not found
+components:
+  schemas:
+    PublicationRecord:
+      type: object
+      description: Record linking a preprint to its published journal article
+      properties:
+        biorxiv_doi:
+          type: string
+          description: DOI of the preprint on bioRxiv or medRxiv
+          example: 10.1101/2021.04.29.21256344
+        published_doi:
+          type: string
+          description: DOI of the published journal article
+          example: 10.1016/j.cell.2021.06.001
+        published_journal:
+          type: string
+          description: Name of the journal where the article was published
+          example: Cell
+        preprint_platform:
+          type: string
+          description: The preprint platform ('bioRxiv' or 'medRxiv')
+          example: medRxiv
+        preprint_title:
+          type: string
+          description: Title of the preprint
+          example: Efficacy of novel therapeutic approach in clinical trial
+        preprint_authors:
+          type: string
+          description: Authors of the preprint
+          example: Johnson, M; Williams, P; Davis, S
+        preprint_category:
+          type: string
+          description: Subject category of the preprint
+          example: clinical trials
+        preprint_date:
+          type: string
+          format: date
+          description: Date the preprint was posted
+          example: '2021-04-29'
+        published_date:
+          type: string
+          format: date
+          description: Date the article was published in the journal
+          example: '2021-06-15'
+        preprint_abstract:
+          type: string
+          description: Abstract of the preprint
+          example: 'Introduction: We conducted a randomized controlled trial...'
+        preprint_author_corresponding:
+          type: string
+          description: Corresponding author name
+          example: Johnson, M
+        preprint_author_corresponding_institution:
+          type: string
+          description: Institution of the corresponding author
+          example: Clinical Research Institute
+    PublicationsResponse:
+      type: object
+      description: Response from the publications endpoint
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/MessageInfo'
+          description: Array containing response metadata and pagination info
+        collection:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicationRecord'
+          description: Array of publication records
+    MessageInfo:
+      type: object
+      description: Metadata about the API response including pagination information
+      properties:
+        status:
+          type: string
+          description: Status of the API call
+          example: ok
+        interval:
+          type: string
+          description: The interval used in the query
+          example: 2020-01-01/2020-01-31
+        cursor:
+          type: string
+          description: The current cursor position
+          example: '0'
+        count:
+          type: integer
+          description: Number of records returned in this response
+          example: 100
+        count_new_papers:
+          type: integer
+          description: Count of new (first version) papers in this response
+          example: 95
+        total:
+          type: integer
+          description: Total number of records matching the query
+          example: 342

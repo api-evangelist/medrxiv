@@ -1,0 +1,145 @@
+openapi: 3.0.3
+info:
+  title: medRxiv REST Details Usage API
+  description: 'REST API providing programmatic access to preprint metadata, publication information, and usage statistics for health science research papers posted to medRxiv. Supports retrieval by date range, DOI lookup, and pagination through result sets. Returns metadata including title, authors, abstract, DOI, license, and subject category. The same API also supports bioRxiv preprints via the server parameter.
+
+    '
+  version: 1.0.0
+  contact:
+    name: medRxiv Support
+    url: https://www.medrxiv.org/about-medrxiv
+  license:
+    name: medRxiv Terms of Use
+    url: https://www.medrxiv.org/about-medrxiv
+servers:
+- url: https://api.medrxiv.org
+  description: medRxiv API server (details endpoint)
+- url: https://api.biorxiv.org
+  description: bioRxiv/medRxiv API server (pubs endpoint)
+tags:
+- name: Usage
+  description: Retrieve usage statistics for preprints
+paths:
+  /usage/{interval}/{server}/{format}:
+    get:
+      operationId: getUsageStatistics
+      summary: Retrieve usage statistics
+      description: 'Returns usage statistics (abstract views, full-text views, PDF downloads) for preprints in aggregate for the specified server and time interval.
+
+        '
+      tags:
+      - Usage
+      parameters:
+      - name: interval
+        in: path
+        required: true
+        description: 'Time interval for statistics. Use ''m'' for monthly or ''y'' for yearly.
+
+          '
+        schema:
+          type: string
+          enum:
+          - m
+          - y
+        example: m
+      - name: server
+        in: path
+        required: true
+        description: The preprint server ('medrxiv' or 'biorxiv').
+        schema:
+          type: string
+          enum:
+          - medrxiv
+          - biorxiv
+        example: medrxiv
+      - name: format
+        in: path
+        required: true
+        description: Response format ('json' or 'xml').
+        schema:
+          type: string
+          enum:
+          - json
+          - xml
+        example: json
+      responses:
+        '200':
+          description: Successful response with usage statistics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsageResponse'
+        '400':
+          description: Bad request - invalid parameters
+components:
+  schemas:
+    UsageResponse:
+      type: object
+      description: Response from the usage statistics endpoint
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/MessageInfo'
+          description: Array containing response metadata
+        collection:
+          type: array
+          items:
+            $ref: '#/components/schemas/UsageRecord'
+          description: Array of usage statistics records
+    MessageInfo:
+      type: object
+      description: Metadata about the API response including pagination information
+      properties:
+        status:
+          type: string
+          description: Status of the API call
+          example: ok
+        interval:
+          type: string
+          description: The interval used in the query
+          example: 2020-01-01/2020-01-31
+        cursor:
+          type: string
+          description: The current cursor position
+          example: '0'
+        count:
+          type: integer
+          description: Number of records returned in this response
+          example: 100
+        count_new_papers:
+          type: integer
+          description: Count of new (first version) papers in this response
+          example: 95
+        total:
+          type: integer
+          description: Total number of records matching the query
+          example: 342
+    UsageRecord:
+      type: object
+      description: Usage statistics for a preprint server in a time period
+      properties:
+        year:
+          type: string
+          description: Year of the statistics
+          example: '2021'
+        month:
+          type: string
+          description: Month of the statistics (for monthly interval)
+          example: '06'
+        abstract_views:
+          type: integer
+          description: Number of abstract page views
+          example: 1250000
+        full_text_views:
+          type: integer
+          description: Number of full-text HTML page views
+          example: 450000
+        pdf_downloads:
+          type: integer
+          description: Number of PDF downloads
+          example: 380000
+        server:
+          type: string
+          description: The preprint server these statistics apply to
+          example: medrxiv

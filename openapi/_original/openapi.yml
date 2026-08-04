@@ -1,0 +1,562 @@
+openapi: 3.0.3
+info:
+  title: medRxiv REST API
+  description: >
+    REST API providing programmatic access to preprint metadata, publication
+    information, and usage statistics for health science research papers posted
+    to medRxiv. Supports retrieval by date range, DOI lookup, and pagination
+    through result sets. Returns metadata including title, authors, abstract,
+    DOI, license, and subject category. The same API also supports bioRxiv
+    preprints via the server parameter.
+  version: "1.0.0"
+  contact:
+    name: medRxiv Support
+    url: https://www.medrxiv.org/about-medrxiv
+  license:
+    name: medRxiv Terms of Use
+    url: https://www.medrxiv.org/about-medrxiv
+servers:
+  - url: https://api.medrxiv.org
+    description: medRxiv API server (details endpoint)
+  - url: https://api.biorxiv.org
+    description: bioRxiv/medRxiv API server (pubs endpoint)
+tags:
+  - name: Details
+    description: Retrieve preprint metadata by date interval or DOI
+  - name: Publications
+    description: Retrieve publication records linking preprints to published articles
+  - name: Usage
+    description: Retrieve usage statistics for preprints
+paths:
+  /details/{server}/{interval}/{cursor}/{format}:
+    get:
+      operationId: getDetails
+      summary: Retrieve preprint details by date interval
+      description: >
+        Returns preprint metadata for papers posted within the specified
+        interval. Results are paginated with 100 records per call. Use the
+        cursor parameter to page through the full result set.
+      tags:
+        - Details
+      parameters:
+        - name: server
+          in: path
+          required: true
+          description: >
+            The preprint server to query. Use 'medrxiv' for medRxiv preprints
+            or 'biorxiv' for bioRxiv preprints.
+          schema:
+            type: string
+            enum:
+              - medrxiv
+              - biorxiv
+          example: medrxiv
+        - name: interval
+          in: path
+          required: true
+          description: >
+            The date interval to query. Can be two dates in YYYY-MM-DD/YYYY-MM-DD
+            format, a numeric value for N most recent posts, or a number followed
+            by 'd' for the most recent N days (e.g., '7d' for last 7 days).
+          schema:
+            type: string
+          example: "2020-01-01/2020-01-31"
+        - name: cursor
+          in: path
+          required: true
+          description: >
+            Starting position for pagination. Defaults to 0. Increment by 100
+            to retrieve successive pages of results.
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+          example: 0
+        - name: format
+          in: path
+          required: true
+          description: >
+            The response format. Use 'json' for JSON or 'xml' for OAI-PMH XML.
+          schema:
+            type: string
+            enum:
+              - json
+              - xml
+          example: json
+      responses:
+        "200":
+          description: Successful response with preprint metadata
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DetailsResponse"
+              example:
+                messages:
+                  - status: ok
+                    interval: "2020-01-01/2020-01-31"
+                    cursor: "0"
+                    count: 100
+                    count_new_papers: 95
+                    total: 342
+                collection:
+                  - doi: "10.1101/2020.01.15.20017285"
+                    title: "Sample preprint title in health sciences"
+                    authors: "Smith, J; Jones, A; Brown, K"
+                    author_corresponding: "Smith, J"
+                    author_corresponding_institution: "University of Medicine"
+                    date: "2020-01-15"
+                    version: "1"
+                    type: "new result"
+                    license: "cc_by"
+                    category: "infectious diseases"
+                    jatsxml: "https://www.medrxiv.org/content/early/2020/01/15/2020.01.15.20017285.source.xml"
+                    abstract: "Background: This study investigates..."
+                    published: "NA"
+                    server: "medrxiv"
+            application/xml:
+              schema:
+                type: string
+                format: xml
+        "400":
+          description: Bad request - invalid parameters
+        "404":
+          description: No results found for the specified interval
+
+  /details/{server}/{doi}/na/{format}:
+    get:
+      operationId: getDetailsByDoi
+      summary: Retrieve preprint details by DOI
+      description: >
+        Returns metadata for a single preprint identified by its DOI. All
+        versions of the preprint are returned in the collection array.
+      tags:
+        - Details
+      parameters:
+        - name: server
+          in: path
+          required: true
+          description: >
+            The preprint server to query. Use 'medrxiv' for medRxiv preprints
+            or 'biorxiv' for bioRxiv preprints.
+          schema:
+            type: string
+            enum:
+              - medrxiv
+              - biorxiv
+          example: medrxiv
+        - name: doi
+          in: path
+          required: true
+          description: >
+            The Digital Object Identifier (DOI) of the preprint to retrieve.
+            Do not include the 'https://doi.org/' prefix.
+          schema:
+            type: string
+          example: "10.1101/2021.04.29.21256344"
+        - name: format
+          in: path
+          required: true
+          description: >
+            The response format. Use 'json' for JSON or 'xml' for OAI-PMH XML.
+          schema:
+            type: string
+            enum:
+              - json
+              - xml
+          example: json
+      responses:
+        "200":
+          description: Successful response with preprint metadata
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DetailsResponse"
+        "404":
+          description: Preprint not found for the specified DOI
+
+  /pubs/{server}/{interval}/{cursor}:
+    get:
+      operationId: getPublications
+      summary: Retrieve published article records by date interval
+      description: >
+        Returns records linking medRxiv/bioRxiv preprints to their corresponding
+        published journal articles. Supports date range, N most recent, or last
+        N days queries.
+      tags:
+        - Publications
+      parameters:
+        - name: server
+          in: path
+          required: true
+          description: >
+            The preprint server. Use 'medrxiv' or 'biorxiv'.
+          schema:
+            type: string
+            enum:
+              - medrxiv
+              - biorxiv
+          example: medrxiv
+        - name: interval
+          in: path
+          required: true
+          description: >
+            The date interval or count. Two YYYY-MM-DD dates separated by '/',
+            a number for N most recent articles, or a number+'d' for last N days.
+          schema:
+            type: string
+          example: "2021-01-01/2021-03-31"
+        - name: cursor
+          in: path
+          required: true
+          description: Starting position for pagination (default 0, increments of 100).
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+          example: 0
+      responses:
+        "200":
+          description: Successful response with publication records
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PublicationsResponse"
+        "400":
+          description: Bad request - invalid parameters
+        "404":
+          description: No results found
+
+  /pubs/{server}/{doi}/na/{format}:
+    get:
+      operationId: getPublicationByDoi
+      summary: Retrieve publication record by DOI
+      description: >
+        Returns the publication record for a specific preprint identified by
+        DOI, linking the preprint to its published journal article if available.
+      tags:
+        - Publications
+      parameters:
+        - name: server
+          in: path
+          required: true
+          description: The preprint server ('medrxiv' or 'biorxiv').
+          schema:
+            type: string
+            enum:
+              - medrxiv
+              - biorxiv
+          example: medrxiv
+        - name: doi
+          in: path
+          required: true
+          description: The DOI of the preprint (without 'https://doi.org/' prefix).
+          schema:
+            type: string
+          example: "10.1101/2021.04.29.21256344"
+        - name: format
+          in: path
+          required: true
+          description: Response format ('json' or 'xml').
+          schema:
+            type: string
+            enum:
+              - json
+              - xml
+          example: json
+      responses:
+        "200":
+          description: Successful response with publication record
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PublicationsResponse"
+        "404":
+          description: Publication record not found
+
+  /usage/{interval}/{server}/{format}:
+    get:
+      operationId: getUsageStatistics
+      summary: Retrieve usage statistics
+      description: >
+        Returns usage statistics (abstract views, full-text views, PDF
+        downloads) for preprints in aggregate for the specified server and
+        time interval.
+      tags:
+        - Usage
+      parameters:
+        - name: interval
+          in: path
+          required: true
+          description: >
+            Time interval for statistics. Use 'm' for monthly or 'y' for yearly.
+          schema:
+            type: string
+            enum:
+              - m
+              - y
+          example: m
+        - name: server
+          in: path
+          required: true
+          description: The preprint server ('medrxiv' or 'biorxiv').
+          schema:
+            type: string
+            enum:
+              - medrxiv
+              - biorxiv
+          example: medrxiv
+        - name: format
+          in: path
+          required: true
+          description: Response format ('json' or 'xml').
+          schema:
+            type: string
+            enum:
+              - json
+              - xml
+          example: json
+      responses:
+        "200":
+          description: Successful response with usage statistics
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UsageResponse"
+        "400":
+          description: Bad request - invalid parameters
+
+components:
+  schemas:
+    MessageInfo:
+      type: object
+      description: Metadata about the API response including pagination information
+      properties:
+        status:
+          type: string
+          description: Status of the API call
+          example: "ok"
+        interval:
+          type: string
+          description: The interval used in the query
+          example: "2020-01-01/2020-01-31"
+        cursor:
+          type: string
+          description: The current cursor position
+          example: "0"
+        count:
+          type: integer
+          description: Number of records returned in this response
+          example: 100
+        count_new_papers:
+          type: integer
+          description: Count of new (first version) papers in this response
+          example: 95
+        total:
+          type: integer
+          description: Total number of records matching the query
+          example: 342
+
+    PreprintDetail:
+      type: object
+      description: Metadata for a single preprint
+      properties:
+        doi:
+          type: string
+          description: Digital Object Identifier for the preprint
+          example: "10.1101/2020.01.15.20017285"
+        title:
+          type: string
+          description: Title of the preprint
+          example: "Impact of intervention on disease transmission in urban settings"
+        authors:
+          type: string
+          description: Semicolon-separated list of author names
+          example: "Smith, John; Jones, Alice; Brown, Kevin"
+        author_corresponding:
+          type: string
+          description: Name of the corresponding author
+          example: "Smith, John"
+        author_corresponding_institution:
+          type: string
+          description: Institution of the corresponding author
+          example: "Department of Epidemiology, University of Medicine"
+        date:
+          type: string
+          format: date
+          description: Date the preprint was posted (YYYY-MM-DD)
+          example: "2020-01-15"
+        version:
+          type: string
+          description: Version number of the preprint
+          example: "1"
+        type:
+          type: string
+          description: Type of research (e.g., 'new result', 'confirmatory result', 'contradictory result')
+          example: "new result"
+        license:
+          type: string
+          description: License under which the preprint is published
+          example: "cc_by"
+          enum:
+            - cc_by
+            - cc_by_nc
+            - cc_by_nd
+            - cc_by_nc_nd
+            - cc_by_nc_sa
+            - cc0
+            - none
+        category:
+          type: string
+          description: Subject category of the preprint
+          example: "infectious diseases"
+        jatsxml:
+          type: string
+          format: uri
+          description: URL to the JATS XML source of the preprint
+          example: "https://www.medrxiv.org/content/early/2020/01/15/2020.01.15.20017285.source.xml"
+        abstract:
+          type: string
+          description: Abstract text of the preprint
+          example: "Background: This study investigates the impact of..."
+        published:
+          type: string
+          description: >
+            Published DOI if the preprint has been published in a peer-reviewed
+            journal, or 'NA' if not yet published.
+          example: "NA"
+        server:
+          type: string
+          description: Server where the preprint is hosted
+          example: "medrxiv"
+          enum:
+            - medrxiv
+            - biorxiv
+
+    DetailsResponse:
+      type: object
+      description: Response from the details endpoint containing preprint metadata
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: "#/components/schemas/MessageInfo"
+          description: Array containing response metadata and pagination info
+        collection:
+          type: array
+          items:
+            $ref: "#/components/schemas/PreprintDetail"
+          description: Array of preprint metadata records
+
+    PublicationRecord:
+      type: object
+      description: Record linking a preprint to its published journal article
+      properties:
+        biorxiv_doi:
+          type: string
+          description: DOI of the preprint on bioRxiv or medRxiv
+          example: "10.1101/2021.04.29.21256344"
+        published_doi:
+          type: string
+          description: DOI of the published journal article
+          example: "10.1016/j.cell.2021.06.001"
+        published_journal:
+          type: string
+          description: Name of the journal where the article was published
+          example: "Cell"
+        preprint_platform:
+          type: string
+          description: The preprint platform ('bioRxiv' or 'medRxiv')
+          example: "medRxiv"
+        preprint_title:
+          type: string
+          description: Title of the preprint
+          example: "Efficacy of novel therapeutic approach in clinical trial"
+        preprint_authors:
+          type: string
+          description: Authors of the preprint
+          example: "Johnson, M; Williams, P; Davis, S"
+        preprint_category:
+          type: string
+          description: Subject category of the preprint
+          example: "clinical trials"
+        preprint_date:
+          type: string
+          format: date
+          description: Date the preprint was posted
+          example: "2021-04-29"
+        published_date:
+          type: string
+          format: date
+          description: Date the article was published in the journal
+          example: "2021-06-15"
+        preprint_abstract:
+          type: string
+          description: Abstract of the preprint
+          example: "Introduction: We conducted a randomized controlled trial..."
+        preprint_author_corresponding:
+          type: string
+          description: Corresponding author name
+          example: "Johnson, M"
+        preprint_author_corresponding_institution:
+          type: string
+          description: Institution of the corresponding author
+          example: "Clinical Research Institute"
+
+    PublicationsResponse:
+      type: object
+      description: Response from the publications endpoint
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: "#/components/schemas/MessageInfo"
+          description: Array containing response metadata and pagination info
+        collection:
+          type: array
+          items:
+            $ref: "#/components/schemas/PublicationRecord"
+          description: Array of publication records
+
+    UsageRecord:
+      type: object
+      description: Usage statistics for a preprint server in a time period
+      properties:
+        year:
+          type: string
+          description: Year of the statistics
+          example: "2021"
+        month:
+          type: string
+          description: Month of the statistics (for monthly interval)
+          example: "06"
+        abstract_views:
+          type: integer
+          description: Number of abstract page views
+          example: 1250000
+        full_text_views:
+          type: integer
+          description: Number of full-text HTML page views
+          example: 450000
+        pdf_downloads:
+          type: integer
+          description: Number of PDF downloads
+          example: 380000
+        server:
+          type: string
+          description: The preprint server these statistics apply to
+          example: "medrxiv"
+
+    UsageResponse:
+      type: object
+      description: Response from the usage statistics endpoint
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: "#/components/schemas/MessageInfo"
+          description: Array containing response metadata
+        collection:
+          type: array
+          items:
+            $ref: "#/components/schemas/UsageRecord"
+          description: Array of usage statistics records

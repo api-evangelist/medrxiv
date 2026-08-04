@@ -1,0 +1,18 @@
+{
+  "provider": "medrxiv",
+  "sources": [
+    "medrxiv-details-api-openapi.yml",
+    "medrxiv-publications-api-openapi.yml",
+    "medrxiv-usage-api-openapi.yml"
+  ],
+  "outputs": [
+    "medrxiv-details-api-openapi.yml",
+    "medrxiv-publications-api-openapi.yml",
+    "medrxiv-usage-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

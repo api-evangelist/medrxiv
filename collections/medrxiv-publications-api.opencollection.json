@@ -1,0 +1,80 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "medRxiv REST Details Publications API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Publications",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve published article records by date interval",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.medrxiv.org/pubs/:server/:interval/:cursor",
+            "params": [
+              {
+                "name": "server",
+                "value": "medrxiv",
+                "type": "path",
+                "description": "The preprint server. Use 'medrxiv' or 'biorxiv'.\n"
+              },
+              {
+                "name": "interval",
+                "value": "2021-01-01/2021-03-31",
+                "type": "path",
+                "description": "The date interval or count. Two YYYY-MM-DD dates separated by '/', a number for N most recent articles, or a number+'d' for last N days.\n"
+              },
+              {
+                "name": "cursor",
+                "value": "0",
+                "type": "path",
+                "description": "Starting position for pagination (default 0, increments of 100)."
+              }
+            ]
+          },
+          "docs": "Returns records linking medRxiv/bioRxiv preprints to their corresponding published journal articles. Supports date range, N most recent, or last N days queries.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve publication record by DOI",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.medrxiv.org/pubs/:server/:doi/na/:format",
+            "params": [
+              {
+                "name": "server",
+                "value": "medrxiv",
+                "type": "path",
+                "description": "The preprint server ('medrxiv' or 'biorxiv')."
+              },
+              {
+                "name": "doi",
+                "value": "10.1101/2021.04.29.21256344",
+                "type": "path",
+                "description": "The DOI of the preprint (without 'https://doi.org/' prefix)."
+              },
+              {
+                "name": "format",
+                "value": "json",
+                "type": "path",
+                "description": "Response format ('json' or 'xml')."
+              }
+            ]
+          },
+          "docs": "Returns the publication record for a specific preprint identified by DOI, linking the preprint to its published journal article if available.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

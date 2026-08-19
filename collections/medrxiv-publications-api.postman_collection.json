@@ -1,0 +1,437 @@
+{
+  "item": [
+    {
+      "id": "dc002652-6172-46d2-992a-ddad9fd2d16e",
+      "name": "Publications",
+      "description": {
+        "content": "Retrieve publication records linking preprints to published articles",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "cf1b01d5-e8f9-4814-9f34-7c89e460ca55",
+          "name": "Retrieve published article records by date interval",
+          "request": {
+            "name": "Retrieve published article records by date interval",
+            "description": {
+              "content": "Returns records linking medRxiv/bioRxiv preprints to their corresponding published journal articles. Supports date range, N most recent, or last N days queries.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pubs",
+                ":server",
+                ":interval",
+                ":cursor"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "server",
+                  "description": "(Required) The preprint server. Use 'medrxiv' or 'biorxiv'.\n"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "interval",
+                  "description": "(Required) The date interval or count. Two YYYY-MM-DD dates separated by '/', a number for N most recent articles, or a number+'d' for last N days.\n"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "0",
+                  "key": "cursor",
+                  "description": "(Required) Starting position for pagination (default 0, increments of 100)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f8417104-0bc0-49de-8b92-0b0c7ddb46dd",
+              "name": "Successful response with publication records",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pubs",
+                    ":server",
+                    ":interval",
+                    ":cursor"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "server",
+                      "description": "(Required) The preprint server. Use 'medrxiv' or 'biorxiv'.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "interval",
+                      "description": "(Required) The date interval or count. Two YYYY-MM-DD dates separated by '/', a number for N most recent articles, or a number+'d' for last N days.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "0",
+                      "key": "cursor",
+                      "description": "(Required) Starting position for pagination (default 0, increments of 100)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"messages\": [\n    {\n      \"status\": \"ok\",\n      \"interval\": \"2020-01-01/2020-01-31\",\n      \"cursor\": \"0\",\n      \"count\": 100,\n      \"count_new_papers\": 95,\n      \"total\": 342\n    },\n    {\n      \"status\": \"ok\",\n      \"interval\": \"2020-01-01/2020-01-31\",\n      \"cursor\": \"0\",\n      \"count\": 100,\n      \"count_new_papers\": 95,\n      \"total\": 342\n    }\n  ],\n  \"collection\": [\n    {\n      \"biorxiv_doi\": \"10.1101/2021.04.29.21256344\",\n      \"published_doi\": \"10.1016/j.cell.2021.06.001\",\n      \"published_journal\": \"Cell\",\n      \"preprint_platform\": \"medRxiv\",\n      \"preprint_title\": \"Efficacy of novel therapeutic approach in clinical trial\",\n      \"preprint_authors\": \"Johnson, M; Williams, P; Davis, S\",\n      \"preprint_category\": \"clinical trials\",\n      \"preprint_date\": \"2021-04-29\",\n      \"published_date\": \"2021-06-15\",\n      \"preprint_abstract\": \"Introduction: We conducted a randomized controlled trial...\",\n      \"preprint_author_corresponding\": \"Johnson, M\",\n      \"preprint_author_corresponding_institution\": \"Clinical Research Institute\"\n    },\n    {\n      \"biorxiv_doi\": \"10.1101/2021.04.29.21256344\",\n      \"published_doi\": \"10.1016/j.cell.2021.06.001\",\n      \"published_journal\": \"Cell\",\n      \"preprint_platform\": \"medRxiv\",\n      \"preprint_title\": \"Efficacy of novel therapeutic approach in clinical trial\",\n      \"preprint_authors\": \"Johnson, M; Williams, P; Davis, S\",\n      \"preprint_category\": \"clinical trials\",\n      \"preprint_date\": \"2021-04-29\",\n      \"published_date\": \"2021-06-15\",\n      \"preprint_abstract\": \"Introduction: We conducted a randomized controlled trial...\",\n      \"preprint_author_corresponding\": \"Johnson, M\",\n      \"preprint_author_corresponding_institution\": \"Clinical Research Institute\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "132fc39b-fae3-4f3e-8876-31554b7abbc2",
+              "name": "Bad request - invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pubs",
+                    ":server",
+                    ":interval",
+                    ":cursor"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "server",
+                      "description": "(Required) The preprint server. Use 'medrxiv' or 'biorxiv'.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "interval",
+                      "description": "(Required) The date interval or count. Two YYYY-MM-DD dates separated by '/', a number for N most recent articles, or a number+'d' for last N days.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "0",
+                      "key": "cursor",
+                      "description": "(Required) Starting position for pagination (default 0, increments of 100)."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e18db04f-672d-4066-8ba1-62dd2d12a7a7",
+              "name": "No results found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pubs",
+                    ":server",
+                    ":interval",
+                    ":cursor"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "server",
+                      "description": "(Required) The preprint server. Use 'medrxiv' or 'biorxiv'.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "interval",
+                      "description": "(Required) The date interval or count. Two YYYY-MM-DD dates separated by '/', a number for N most recent articles, or a number+'d' for last N days.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "0",
+                      "key": "cursor",
+                      "description": "(Required) Starting position for pagination (default 0, increments of 100)."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "425d0640-92b5-42e5-ab2f-b6b866b66087",
+          "name": "Retrieve publication record by DOI",
+          "request": {
+            "name": "Retrieve publication record by DOI",
+            "description": {
+              "content": "Returns the publication record for a specific preprint identified by DOI, linking the preprint to its published journal article if available.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pubs",
+                ":server",
+                ":doi",
+                "na",
+                ":format"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "server",
+                  "description": "(Required) The preprint server ('medrxiv' or 'biorxiv')."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "doi",
+                  "description": "(Required) The DOI of the preprint (without 'https://doi.org/' prefix)."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "format",
+                  "description": "(Required) Response format ('json' or 'xml')."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "61f15e20-32c8-4eda-a13e-13ae5b567d3a",
+              "name": "Successful response with publication record",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pubs",
+                    ":server",
+                    ":doi",
+                    "na",
+                    ":format"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "server",
+                      "description": "(Required) The preprint server ('medrxiv' or 'biorxiv')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "doi",
+                      "description": "(Required) The DOI of the preprint (without 'https://doi.org/' prefix)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "format",
+                      "description": "(Required) Response format ('json' or 'xml')."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"messages\": [\n    {\n      \"status\": \"ok\",\n      \"interval\": \"2020-01-01/2020-01-31\",\n      \"cursor\": \"0\",\n      \"count\": 100,\n      \"count_new_papers\": 95,\n      \"total\": 342\n    },\n    {\n      \"status\": \"ok\",\n      \"interval\": \"2020-01-01/2020-01-31\",\n      \"cursor\": \"0\",\n      \"count\": 100,\n      \"count_new_papers\": 95,\n      \"total\": 342\n    }\n  ],\n  \"collection\": [\n    {\n      \"biorxiv_doi\": \"10.1101/2021.04.29.21256344\",\n      \"published_doi\": \"10.1016/j.cell.2021.06.001\",\n      \"published_journal\": \"Cell\",\n      \"preprint_platform\": \"medRxiv\",\n      \"preprint_title\": \"Efficacy of novel therapeutic approach in clinical trial\",\n      \"preprint_authors\": \"Johnson, M; Williams, P; Davis, S\",\n      \"preprint_category\": \"clinical trials\",\n      \"preprint_date\": \"2021-04-29\",\n      \"published_date\": \"2021-06-15\",\n      \"preprint_abstract\": \"Introduction: We conducted a randomized controlled trial...\",\n      \"preprint_author_corresponding\": \"Johnson, M\",\n      \"preprint_author_corresponding_institution\": \"Clinical Research Institute\"\n    },\n    {\n      \"biorxiv_doi\": \"10.1101/2021.04.29.21256344\",\n      \"published_doi\": \"10.1016/j.cell.2021.06.001\",\n      \"published_journal\": \"Cell\",\n      \"preprint_platform\": \"medRxiv\",\n      \"preprint_title\": \"Efficacy of novel therapeutic approach in clinical trial\",\n      \"preprint_authors\": \"Johnson, M; Williams, P; Davis, S\",\n      \"preprint_category\": \"clinical trials\",\n      \"preprint_date\": \"2021-04-29\",\n      \"published_date\": \"2021-06-15\",\n      \"preprint_abstract\": \"Introduction: We conducted a randomized controlled trial...\",\n      \"preprint_author_corresponding\": \"Johnson, M\",\n      \"preprint_author_corresponding_institution\": \"Clinical Research Institute\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4ad3f2bf-212d-4640-8ff3-caac6549a0c8",
+              "name": "Publication record not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pubs",
+                    ":server",
+                    ":doi",
+                    "na",
+                    ":format"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "server",
+                      "description": "(Required) The preprint server ('medrxiv' or 'biorxiv')."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "doi",
+                      "description": "(Required) The DOI of the preprint (without 'https://doi.org/' prefix)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "format",
+                      "description": "(Required) Response format ('json' or 'xml')."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.medrxiv.org",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "206848d1-1f65-43ad-be57-747baf36ab6f",
+    "name": "medRxiv REST Details Publications API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API providing programmatic access to preprint metadata, publication information, and usage statistics for health science research papers posted to medRxiv. Supports retrieval by date range, DOI lookup, and pagination through result sets. Returns metadata including title, authors, abstract, DOI, license, and subject category. The same API also supports bioRxiv preprints via the server parameter.\n\n\nContact Support:\n Name: medRxiv Support",
+      "type": "text/plain"
+    }
+  }
+}

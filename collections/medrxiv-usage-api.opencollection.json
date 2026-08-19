@@ -1,0 +1,49 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "medRxiv REST Details Usage API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Usage",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve usage statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.medrxiv.org/usage/:interval/:server/:format",
+            "params": [
+              {
+                "name": "interval",
+                "value": "m",
+                "type": "path",
+                "description": "Time interval for statistics. Use 'm' for monthly or 'y' for yearly.\n"
+              },
+              {
+                "name": "server",
+                "value": "medrxiv",
+                "type": "path",
+                "description": "The preprint server ('medrxiv' or 'biorxiv')."
+              },
+              {
+                "name": "format",
+                "value": "json",
+                "type": "path",
+                "description": "Response format ('json' or 'xml')."
+              }
+            ]
+          },
+          "docs": "Returns usage statistics (abstract views, full-text views, PDF downloads) for preprints in aggregate for the specified server and time interval.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

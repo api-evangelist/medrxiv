@@ -1,0 +1,469 @@
+{
+  "item": [
+    {
+      "id": "5203a105-2f70-4d28-9d46-8d9848919abd",
+      "name": "Details",
+      "description": {
+        "content": "Retrieve preprint metadata by date interval or DOI",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "cd444e68-3350-4dbd-b90f-8de0a97329b0",
+          "name": "Retrieve preprint details by date interval",
+          "request": {
+            "name": "Retrieve preprint details by date interval",
+            "description": {
+              "content": "Returns preprint metadata for papers posted within the specified interval. Results are paginated with 100 records per call. Use the cursor parameter to page through the full result set.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "details",
+                ":server",
+                ":interval",
+                ":cursor",
+                ":format"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "server",
+                  "description": "(Required) The preprint server to query. Use 'medrxiv' for medRxiv preprints or 'biorxiv' for bioRxiv preprints.\n"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "interval",
+                  "description": "(Required) The date interval to query. Can be two dates in YYYY-MM-DD/YYYY-MM-DD format, a numeric value for N most recent posts, or a number followed by 'd' for the most recent N days (e.g., '7d' for last 7 days).\n"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "0",
+                  "key": "cursor",
+                  "description": "(Required) Starting position for pagination. Defaults to 0. Increment by 100 to retrieve successive pages of results.\n"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "format",
+                  "description": "(Required) The response format. Use 'json' for JSON or 'xml' for OAI-PMH XML.\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a7f4cdea-3786-468b-8cf6-6d4433733e9c",
+              "name": "Successful response with preprint metadata",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "details",
+                    ":server",
+                    ":interval",
+                    ":cursor",
+                    ":format"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "server",
+                      "description": "(Required) The preprint server to query. Use 'medrxiv' for medRxiv preprints or 'biorxiv' for bioRxiv preprints.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "interval",
+                      "description": "(Required) The date interval to query. Can be two dates in YYYY-MM-DD/YYYY-MM-DD format, a numeric value for N most recent posts, or a number followed by 'd' for the most recent N days (e.g., '7d' for last 7 days).\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "0",
+                      "key": "cursor",
+                      "description": "(Required) Starting position for pagination. Defaults to 0. Increment by 100 to retrieve successive pages of results.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "format",
+                      "description": "(Required) The response format. Use 'json' for JSON or 'xml' for OAI-PMH XML.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"messages\": [\n    {\n      \"status\": \"ok\",\n      \"interval\": \"2020-01-01/2020-01-31\",\n      \"cursor\": \"0\",\n      \"count\": 100,\n      \"count_new_papers\": 95,\n      \"total\": 342\n    }\n  ],\n  \"collection\": [\n    {\n      \"doi\": \"10.1101/2020.01.15.20017285\",\n      \"title\": \"Sample preprint title in health sciences\",\n      \"authors\": \"Smith, J; Jones, A; Brown, K\",\n      \"author_corresponding\": \"Smith, J\",\n      \"author_corresponding_institution\": \"University of Medicine\",\n      \"date\": \"2020-01-15\",\n      \"version\": \"1\",\n      \"type\": \"new result\",\n      \"license\": \"cc_by\",\n      \"category\": \"infectious diseases\",\n      \"jatsxml\": \"https://www.medrxiv.org/content/early/2020/01/15/2020.01.15.20017285.source.xml\",\n      \"abstract\": \"Background: This study investigates...\",\n      \"published\": \"NA\",\n      \"server\": \"medrxiv\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8c0406a4-61a0-4602-9fda-71dc3e22e6fb",
+              "name": "Bad request - invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "details",
+                    ":server",
+                    ":interval",
+                    ":cursor",
+                    ":format"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "server",
+                      "description": "(Required) The preprint server to query. Use 'medrxiv' for medRxiv preprints or 'biorxiv' for bioRxiv preprints.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "interval",
+                      "description": "(Required) The date interval to query. Can be two dates in YYYY-MM-DD/YYYY-MM-DD format, a numeric value for N most recent posts, or a number followed by 'd' for the most recent N days (e.g., '7d' for last 7 days).\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "0",
+                      "key": "cursor",
+                      "description": "(Required) Starting position for pagination. Defaults to 0. Increment by 100 to retrieve successive pages of results.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "format",
+                      "description": "(Required) The response format. Use 'json' for JSON or 'xml' for OAI-PMH XML.\n"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5a352e0d-b536-402d-89aa-6eb79c33f0df",
+              "name": "No results found for the specified interval",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "details",
+                    ":server",
+                    ":interval",
+                    ":cursor",
+                    ":format"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "server",
+                      "description": "(Required) The preprint server to query. Use 'medrxiv' for medRxiv preprints or 'biorxiv' for bioRxiv preprints.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "interval",
+                      "description": "(Required) The date interval to query. Can be two dates in YYYY-MM-DD/YYYY-MM-DD format, a numeric value for N most recent posts, or a number followed by 'd' for the most recent N days (e.g., '7d' for last 7 days).\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "0",
+                      "key": "cursor",
+                      "description": "(Required) Starting position for pagination. Defaults to 0. Increment by 100 to retrieve successive pages of results.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "format",
+                      "description": "(Required) The response format. Use 'json' for JSON or 'xml' for OAI-PMH XML.\n"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3eed6655-4269-4fe6-835d-f58ff0994eb8",
+          "name": "Retrieve preprint details by DOI",
+          "request": {
+            "name": "Retrieve preprint details by DOI",
+            "description": {
+              "content": "Returns metadata for a single preprint identified by its DOI. All versions of the preprint are returned in the collection array.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "details",
+                ":server",
+                ":doi",
+                "na",
+                ":format"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "server",
+                  "description": "(Required) The preprint server to query. Use 'medrxiv' for medRxiv preprints or 'biorxiv' for bioRxiv preprints.\n"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "doi",
+                  "description": "(Required) The Digital Object Identifier (DOI) of the preprint to retrieve. Do not include the 'https://doi.org/' prefix.\n"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "format",
+                  "description": "(Required) The response format. Use 'json' for JSON or 'xml' for OAI-PMH XML.\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "deaa78ba-d400-4d1c-ad63-e6aadd4cee6d",
+              "name": "Successful response with preprint metadata",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "details",
+                    ":server",
+                    ":doi",
+                    "na",
+                    ":format"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "server",
+                      "description": "(Required) The preprint server to query. Use 'medrxiv' for medRxiv preprints or 'biorxiv' for bioRxiv preprints.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "doi",
+                      "description": "(Required) The Digital Object Identifier (DOI) of the preprint to retrieve. Do not include the 'https://doi.org/' prefix.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "format",
+                      "description": "(Required) The response format. Use 'json' for JSON or 'xml' for OAI-PMH XML.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"messages\": [\n    {\n      \"status\": \"ok\",\n      \"interval\": \"2020-01-01/2020-01-31\",\n      \"cursor\": \"0\",\n      \"count\": 100,\n      \"count_new_papers\": 95,\n      \"total\": 342\n    },\n    {\n      \"status\": \"ok\",\n      \"interval\": \"2020-01-01/2020-01-31\",\n      \"cursor\": \"0\",\n      \"count\": 100,\n      \"count_new_papers\": 95,\n      \"total\": 342\n    }\n  ],\n  \"collection\": [\n    {\n      \"doi\": \"10.1101/2020.01.15.20017285\",\n      \"title\": \"Impact of intervention on disease transmission in urban settings\",\n      \"authors\": \"Smith, John; Jones, Alice; Brown, Kevin\",\n      \"author_corresponding\": \"Smith, John\",\n      \"author_corresponding_institution\": \"Department of Epidemiology, University of Medicine\",\n      \"date\": \"2020-01-15\",\n      \"version\": \"1\",\n      \"type\": \"new result\",\n      \"license\": \"cc_by\",\n      \"category\": \"infectious diseases\",\n      \"jatsxml\": \"https://www.medrxiv.org/content/early/2020/01/15/2020.01.15.20017285.source.xml\",\n      \"abstract\": \"Background: This study investigates the impact of...\",\n      \"published\": \"NA\",\n      \"server\": \"medrxiv\"\n    },\n    {\n      \"doi\": \"10.1101/2020.01.15.20017285\",\n      \"title\": \"Impact of intervention on disease transmission in urban settings\",\n      \"authors\": \"Smith, John; Jones, Alice; Brown, Kevin\",\n      \"author_corresponding\": \"Smith, John\",\n      \"author_corresponding_institution\": \"Department of Epidemiology, University of Medicine\",\n      \"date\": \"2020-01-15\",\n      \"version\": \"1\",\n      \"type\": \"new result\",\n      \"license\": \"cc_by\",\n      \"category\": \"infectious diseases\",\n      \"jatsxml\": \"https://www.medrxiv.org/content/early/2020/01/15/2020.01.15.20017285.source.xml\",\n      \"abstract\": \"Background: This study investigates the impact of...\",\n      \"published\": \"NA\",\n      \"server\": \"medrxiv\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "76d98db3-43b6-45c3-9e07-92b8dfd571e7",
+              "name": "Preprint not found for the specified DOI",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "details",
+                    ":server",
+                    ":doi",
+                    "na",
+                    ":format"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "server",
+                      "description": "(Required) The preprint server to query. Use 'medrxiv' for medRxiv preprints or 'biorxiv' for bioRxiv preprints.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "doi",
+                      "description": "(Required) The Digital Object Identifier (DOI) of the preprint to retrieve. Do not include the 'https://doi.org/' prefix.\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "format",
+                      "description": "(Required) The response format. Use 'json' for JSON or 'xml' for OAI-PMH XML.\n"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.medrxiv.org",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "cf9f9247-b944-4c0c-b255-7f797dbf4bed",
+    "name": "medRxiv REST Details API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API providing programmatic access to preprint metadata, publication information, and usage statistics for health science research papers posted to medRxiv. Supports retrieval by date range, DOI lookup, and pagination through result sets. Returns metadata including title, authors, abstract, DOI, license, and subject category. The same API also supports bioRxiv preprints via the server parameter.\n\n\nContact Support:\n Name: medRxiv Support",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,5 +1,17 @@
 name: medRxiv
 description: Cold Spring Harbor Laboratory preprint server for health sciences providing a REST API for searching and accessing medical and clinical research preprints before peer review. The API enables programmatic access to preprint metadata, publication information, and usage statistics for health science papers posted to medRxiv.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 specificationVersion: '0.23'
 accessModel:
   pricing: free

@@ -136,6 +136,9 @@ apis:
     url: >-
       https://raw.githubusercontent.com/api-evangelist/medrxiv/refs/heads/main/finops/finops.yml
 common:
+  - type: CapabilityMap
+    url: capabilities/medrxiv-capability-edges.yml
+    name: medRxiv Business Capability Map
   - type: AgenticAccess
     url: agentic-access/medrxiv-agentic-access.yml
   - type: DomainSecurity

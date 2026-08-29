@@ -1,0 +1,36 @@
+slug: medrxiv
+provider: medRxiv
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Education
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 2
+edges:
+- tag: Details
+  spec_file: medrxiv-details-api-openapi.yml
+  capability_id: BC-4780.40
+  capability_id_l1: BC-4780
+  capability_name: Scholarly Output & Publication Management
+  confidence: 0.7
+  evidence: '"Retrieve preprint details by DOI"; "Returns metadata including title, authors, abstract,
+    DOI, license, and subject category"'
+  reason: The operations expose scholarly preprint metadata with persistent identifiers (DOI), which is
+    the stewardship/dissemination of scholarly output rather than any generic IT function. Mapped to Scholarly
+    Output & Publication Management; confidence moderated because the vendor is a repository platform,
+    not the institution tracking its own output.
+- tag: Publications
+  spec_file: medrxiv-publications-api-openapi.yml
+  capability_id: BC-4780.40
+  capability_id_l1: BC-4780
+  capability_name: Scholarly Output & Publication Management
+  confidence: 0.7
+  evidence: '"getPublications  Retrieve published article records by date interval"; schema "PublicationRecord"'
+  reason: Operations return records of preprints subsequently published in journals — tracking of scholarly
+    publications and their identifiers, matching Scholarly Output & Publication Management.

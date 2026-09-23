@@ -1,9 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: medRxiv REST Details API
-  description: 'REST API providing programmatic access to preprint metadata, publication information, and usage statistics for health science research papers posted to medRxiv. Supports retrieval by date range, DOI lookup, and pagination through result sets. Returns metadata including title, authors, abstract, DOI, license, and subject category. The same API also supports bioRxiv preprints via the server parameter.
-
-    '
+  description: REST API providing programmatic access to preprint metadata, publication information, and usage statistics for health science research papers posted to medRxiv. Supports retrieval by date range, DOI lookup, and pagination through result sets. Returns metadata including title, authors, abstract, DOI, license, and subject category. The same API also supports bioRxiv preprints via the server parameter.
   version: 1.0.0
   contact:
     name: medRxiv Support
@@ -24,9 +22,7 @@ paths:
     get:
       operationId: getDetails
       summary: Retrieve preprint details by date interval
-      description: 'Returns preprint metadata for papers posted within the specified interval. Results are paginated with 100 records per call. Use the cursor parameter to page through the full result set.
-
-        '
+      description: Returns preprint metadata for papers posted within the specified interval. Results are paginated with 100 records per call. Use the cursor parameter to page through the full result set.
       tags:
       - Details
       parameters:
@@ -116,9 +112,7 @@ paths:
     get:
       operationId: getDetailsByDoi
       summary: Retrieve preprint details by DOI
-      description: 'Returns metadata for a single preprint identified by its DOI. All versions of the preprint are returned in the collection array.
-
-        '
+      description: Returns metadata for a single preprint identified by its DOI. All versions of the preprint are returned in the collection array.
       tags:
       - Details
       parameters:
@@ -166,6 +160,48 @@ paths:
           description: Preprint not found for the specified DOI
 components:
   schemas:
+    MessageInfo:
+      type: object
+      description: Metadata about the API response including pagination information
+      properties:
+        status:
+          type: string
+          description: Status of the API call
+          example: ok
+        interval:
+          type: string
+          description: The interval used in the query
+          example: 2020-01-01/2020-01-31
+        cursor:
+          type: string
+          description: The current cursor position
+          example: '0'
+        count:
+          type: integer
+          description: Number of records returned in this response
+          example: 100
+        count_new_papers:
+          type: integer
+          description: Count of new (first version) papers in this response
+          example: 95
+        total:
+          type: integer
+          description: Total number of records matching the query
+          example: 342
+    DetailsResponse:
+      type: object
+      description: Response from the details endpoint containing preprint metadata
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/MessageInfo'
+          description: Array containing response metadata and pagination info
+        collection:
+          type: array
+          items:
+            $ref: '#/components/schemas/PreprintDetail'
+          description: Array of preprint metadata records
     PreprintDetail:
       type: object
       description: Metadata for a single preprint
@@ -241,45 +277,3 @@ components:
           enum:
           - medrxiv
           - biorxiv
-    MessageInfo:
-      type: object
-      description: Metadata about the API response including pagination information
-      properties:
-        status:
-          type: string
-          description: Status of the API call
-          example: ok
-        interval:
-          type: string
-          description: The interval used in the query
-          example: 2020-01-01/2020-01-31
-        cursor:
-          type: string
-          description: The current cursor position
-          example: '0'
-        count:
-          type: integer
-          description: Number of records returned in this response
-          example: 100
-        count_new_papers:
-          type: integer
-          description: Count of new (first version) papers in this response
-          example: 95
-        total:
-          type: integer
-          description: Total number of records matching the query
-          example: 342
-    DetailsResponse:
-      type: object
-      description: Response from the details endpoint containing preprint metadata
-      properties:
-        messages:
-          type: array
-          items:
-            $ref: '#/components/schemas/MessageInfo'
-          description: Array containing response metadata and pagination info
-        collection:
-          type: array
-          items:
-            $ref: '#/components/schemas/PreprintDetail'
-          description: Array of preprint metadata records

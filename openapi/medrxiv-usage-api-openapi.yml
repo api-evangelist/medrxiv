@@ -1,9 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: medRxiv REST Details Usage API
-  description: 'REST API providing programmatic access to preprint metadata, publication information, and usage statistics for health science research papers posted to medRxiv. Supports retrieval by date range, DOI lookup, and pagination through result sets. Returns metadata including title, authors, abstract, DOI, license, and subject category. The same API also supports bioRxiv preprints via the server parameter.
-
-    '
+  title: medRxiv REST Usage API
+  description: REST API providing programmatic access to preprint metadata, publication information, and usage statistics for health science research papers posted to medRxiv. Supports retrieval by date range, DOI lookup, and pagination through result sets. Returns metadata including title, authors, abstract, DOI, license, and subject category. The same API also supports bioRxiv preprints via the server parameter.
   version: 1.0.0
   contact:
     name: medRxiv Support
@@ -24,9 +22,7 @@ paths:
     get:
       operationId: getUsageStatistics
       summary: Retrieve usage statistics
-      description: 'Returns usage statistics (abstract views, full-text views, PDF downloads) for preprints in aggregate for the specified server and time interval.
-
-        '
+      description: Returns usage statistics (abstract views, full-text views, PDF downloads) for preprints in aggregate for the specified server and time interval.
       tags:
       - Usage
       parameters:
@@ -73,20 +69,6 @@ paths:
           description: Bad request - invalid parameters
 components:
   schemas:
-    UsageResponse:
-      type: object
-      description: Response from the usage statistics endpoint
-      properties:
-        messages:
-          type: array
-          items:
-            $ref: '#/components/schemas/MessageInfo'
-          description: Array containing response metadata
-        collection:
-          type: array
-          items:
-            $ref: '#/components/schemas/UsageRecord'
-          description: Array of usage statistics records
     MessageInfo:
       type: object
       description: Metadata about the API response including pagination information
@@ -115,6 +97,20 @@ components:
           type: integer
           description: Total number of records matching the query
           example: 342
+    UsageResponse:
+      type: object
+      description: Response from the usage statistics endpoint
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/MessageInfo'
+          description: Array containing response metadata
+        collection:
+          type: array
+          items:
+            $ref: '#/components/schemas/UsageRecord'
+          description: Array of usage statistics records
     UsageRecord:
       type: object
       description: Usage statistics for a preprint server in a time period

@@ -1,9 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: medRxiv REST Details Publications API
-  description: 'REST API providing programmatic access to preprint metadata, publication information, and usage statistics for health science research papers posted to medRxiv. Supports retrieval by date range, DOI lookup, and pagination through result sets. Returns metadata including title, authors, abstract, DOI, license, and subject category. The same API also supports bioRxiv preprints via the server parameter.
-
-    '
+  title: medRxiv REST Publications API
+  description: REST API providing programmatic access to preprint metadata, publication information, and usage statistics for health science research papers posted to medRxiv. Supports retrieval by date range, DOI lookup, and pagination through result sets. Returns metadata including title, authors, abstract, DOI, license, and subject category. The same API also supports bioRxiv preprints via the server parameter.
   version: 1.0.0
   contact:
     name: medRxiv Support
@@ -24,9 +22,7 @@ paths:
     get:
       operationId: getPublications
       summary: Retrieve published article records by date interval
-      description: 'Returns records linking medRxiv/bioRxiv preprints to their corresponding published journal articles. Supports date range, N most recent, or last N days queries.
-
-        '
+      description: Returns records linking medRxiv/bioRxiv preprints to their corresponding published journal articles. Supports date range, N most recent, or last N days queries.
       tags:
       - Publications
       parameters:
@@ -75,9 +71,7 @@ paths:
     get:
       operationId: getPublicationByDoi
       summary: Retrieve publication record by DOI
-      description: 'Returns the publication record for a specific preprint identified by DOI, linking the preprint to its published journal article if available.
-
-        '
+      description: Returns the publication record for a specific preprint identified by DOI, linking the preprint to its published journal article if available.
       tags:
       - Publications
       parameters:
@@ -119,6 +113,48 @@ paths:
           description: Publication record not found
 components:
   schemas:
+    PublicationsResponse:
+      type: object
+      description: Response from the publications endpoint
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/MessageInfo'
+          description: Array containing response metadata and pagination info
+        collection:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicationRecord'
+          description: Array of publication records
+    MessageInfo:
+      type: object
+      description: Metadata about the API response including pagination information
+      properties:
+        status:
+          type: string
+          description: Status of the API call
+          example: ok
+        interval:
+          type: string
+          description: The interval used in the query
+          example: 2020-01-01/2020-01-31
+        cursor:
+          type: string
+          description: The current cursor position
+          example: '0'
+        count:
+          type: integer
+          description: Number of records returned in this response
+          example: 100
+        count_new_papers:
+          type: integer
+          description: Count of new (first version) papers in this response
+          example: 95
+        total:
+          type: integer
+          description: Total number of records matching the query
+          example: 342
     PublicationRecord:
       type: object
       description: Record linking a preprint to its published journal article
@@ -173,45 +209,3 @@ components:
           type: string
           description: Institution of the corresponding author
           example: Clinical Research Institute
-    PublicationsResponse:
-      type: object
-      description: Response from the publications endpoint
-      properties:
-        messages:
-          type: array
-          items:
-            $ref: '#/components/schemas/MessageInfo'
-          description: Array containing response metadata and pagination info
-        collection:
-          type: array
-          items:
-            $ref: '#/components/schemas/PublicationRecord'
-          description: Array of publication records
-    MessageInfo:
-      type: object
-      description: Metadata about the API response including pagination information
-      properties:
-        status:
-          type: string
-          description: Status of the API call
-          example: ok
-        interval:
-          type: string
-          description: The interval used in the query
-          example: 2020-01-01/2020-01-31
-        cursor:
-          type: string
-          description: The current cursor position
-          example: '0'
-        count:
-          type: integer
-          description: Number of records returned in this response
-          example: 100
-        count_new_papers:
-          type: integer
-          description: Count of new (first version) papers in this response
-          example: 95
-        total:
-          type: integer
-          description: Total number of records matching the query
-          example: 342

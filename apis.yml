@@ -38,6 +38,7 @@ tags:
   - Medical Research
   - Clinical Research
   - Scientific Publications
+  - Research Repository
 apis:
 - aid: medrxiv:medrxiv-details-api
   name: medRxiv Details API

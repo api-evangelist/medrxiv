@@ -69,6 +69,34 @@ paths:
           description: Bad request - invalid parameters
 components:
   schemas:
+    MessageInfo:
+      type: object
+      description: Metadata about the API response including pagination information
+      properties:
+        status:
+          type: string
+          description: Status of the API call
+          example: ok
+        interval:
+          type: string
+          description: The interval used in the query
+          example: 2020-01-01/2020-01-31
+        cursor:
+          type: string
+          description: The current cursor position
+          example: '0'
+        count:
+          type: integer
+          description: Number of records returned in this response
+          example: 100
+        count_new_papers:
+          type: integer
+          description: Count of new (first version) papers in this response
+          example: 95
+        total:
+          type: integer
+          description: Total number of records matching the query
+          example: 342
     UsageResponse:
       type: object
       description: Response from the usage statistics endpoint
@@ -111,31 +139,3 @@ components:
           type: string
           description: The preprint server these statistics apply to
           example: medrxiv
-    MessageInfo:
-      type: object
-      description: Metadata about the API response including pagination information
-      properties:
-        status:
-          type: string
-          description: Status of the API call
-          example: ok
-        interval:
-          type: string
-          description: The interval used in the query
-          example: 2020-01-01/2020-01-31
-        cursor:
-          type: string
-          description: The current cursor position
-          example: '0'
-        count:
-          type: integer
-          description: Number of records returned in this response
-          example: 100
-        count_new_papers:
-          type: integer
-          description: Count of new (first version) papers in this response
-          example: 95
-        total:
-          type: integer
-          description: Total number of records matching the query
-          example: 342

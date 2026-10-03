@@ -113,48 +113,6 @@ paths:
           description: Publication record not found
 components:
   schemas:
-    PublicationsResponse:
-      type: object
-      description: Response from the publications endpoint
-      properties:
-        messages:
-          type: array
-          items:
-            $ref: '#/components/schemas/MessageInfo'
-          description: Array containing response metadata and pagination info
-        collection:
-          type: array
-          items:
-            $ref: '#/components/schemas/PublicationRecord'
-          description: Array of publication records
-    MessageInfo:
-      type: object
-      description: Metadata about the API response including pagination information
-      properties:
-        status:
-          type: string
-          description: Status of the API call
-          example: ok
-        interval:
-          type: string
-          description: The interval used in the query
-          example: 2020-01-01/2020-01-31
-        cursor:
-          type: string
-          description: The current cursor position
-          example: '0'
-        count:
-          type: integer
-          description: Number of records returned in this response
-          example: 100
-        count_new_papers:
-          type: integer
-          description: Count of new (first version) papers in this response
-          example: 95
-        total:
-          type: integer
-          description: Total number of records matching the query
-          example: 342
     PublicationRecord:
       type: object
       description: Record linking a preprint to its published journal article
@@ -209,3 +167,45 @@ components:
           type: string
           description: Institution of the corresponding author
           example: Clinical Research Institute
+    MessageInfo:
+      type: object
+      description: Metadata about the API response including pagination information
+      properties:
+        status:
+          type: string
+          description: Status of the API call
+          example: ok
+        interval:
+          type: string
+          description: The interval used in the query
+          example: 2020-01-01/2020-01-31
+        cursor:
+          type: string
+          description: The current cursor position
+          example: '0'
+        count:
+          type: integer
+          description: Number of records returned in this response
+          example: 100
+        count_new_papers:
+          type: integer
+          description: Count of new (first version) papers in this response
+          example: 95
+        total:
+          type: integer
+          description: Total number of records matching the query
+          example: 342
+    PublicationsResponse:
+      type: object
+      description: Response from the publications endpoint
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/MessageInfo'
+          description: Array containing response metadata and pagination info
+        collection:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicationRecord'
+          description: Array of publication records

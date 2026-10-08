@@ -21,3 +21,15 @@ plans:
       - Metadata includes title, authors, abstract, DOI, license, and category
       - No registration or API key required
       - Shared infrastructure with bioRxiv API at api.biorxiv.org
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models: []
+  units: []
+  plans:
+  - name: Free Public Access
+    access: free
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []

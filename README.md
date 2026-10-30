@@ -64,37 +64,140 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Cold Spring Harbor Laboratory preprint server for health sciences with a REST API for searching and accessing medical and clinical research preprints before peer review.
+Cold Spring Harbor Laboratory preprint server for health sciences providing a REST API for searching and accessing medical and clinical research preprints before peer review. The API enables programmatic access to preprint metadata, publication information, and usage statistics for health science papers posted to medRxiv.
 
-## API
+**Areas:** Health Sciences · Preprints · Research · Open Access · Medical Research · Clinical Research · Scientific Publications · Research Repository
 
-The medRxiv REST API provides programmatic access to preprint metadata and publication information for health science research. It is free, open, and requires no authentication.
+## medRxiv on APIs.io
 
-**Base URL:** `https://api.medrxiv.org`
+Everything profiled for medRxiv is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/medrxiv/](https://apis.io/providers/medrxiv/)** — or go straight to one of the APIs or properties below.
 
-### Endpoints
+### APIs (3)
 
-- **Date-range query:** `https://api.medrxiv.org/details/medrxiv/[YYYY-MM-DD]/[YYYY-MM-DD]/[cursor]/[format]`
-- **DOI lookup:** `https://api.medrxiv.org/details/medrxiv/[DOI]/na/[format]`
-- **Recent N papers:** `https://api.medrxiv.org/details/medrxiv/[N]/[cursor]/[format]`
-- **Recent N days:** `https://api.medrxiv.org/details/medrxiv/[N]d/[cursor]/[format]`
+- [medRxiv Details API](https://apis.io/apis/medrxiv/medrxiv-details-api/) — Retrieve preprint metadata by date interval or DOI
+- [medRxiv Publications API](https://apis.io/apis/medrxiv/medrxiv-publications-api/) — Retrieve publication records linking preprints to published articles
+- [medRxiv Usage API](https://apis.io/apis/medrxiv/medrxiv-usage-api/) — Retrieve usage statistics for preprints
 
-Results are paginated at 100 records per response. Use the `cursor` parameter (integer offset) to iterate through larger result sets.
+### Published properties
 
-### Output Formats
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-- `json` — JSON response
-- `xml` — OAI-PMH XML format
+#### Agentic access (1)
 
-### Returned Metadata Fields
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- DOI, title, authors, corresponding author and institution
-- Publication date, version number
-- Abstract, license type, subject category
-- Links to preprint page and PDF
+- [Medrxiv Agentic Access](https://apis.io/agentic-access/medrxiv/medrxiv-agentic-access/)
 
-## Resources
+#### JSON Schema (2)
 
-- [medRxiv Website](https://www.medrxiv.org/)
-- [API Documentation](https://api.medrxiv.org/)
-- [About medRxiv](https://www.medrxiv.org/about-medrxiv)
+The data models the API reads and writes.
+
+- [PreprintDetail](https://apis.io/schemas/medrxiv/preprint-detail/)
+- [PublicationRecord](https://apis.io/schemas/medrxiv/publication-record/)
+
+#### Examples (3)
+
+Example requests and responses.
+
+- [Get Preprint By Doi](https://apis.io/examples/medrxiv/get-preprint-by-doi/)
+- [Get Preprints By Date Range](https://apis.io/examples/medrxiv/get-preprints-by-date-range/)
+- [Get Publication Records](https://apis.io/examples/medrxiv/get-publication-records/)
+
+#### Collections (3)
+
+Postman and Open Collection request collections.
+
+- [medRxiv REST Details API](https://apis.io/collections/medrxiv/open-medrxiv-details-api/)
+- [medRxiv REST Details Publications API](https://apis.io/collections/medrxiv/open-medrxiv-publications-api/)
+- [medRxiv REST Details Usage API](https://apis.io/collections/medrxiv/open-medrxiv-usage-api/)
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [medRxiv — jsonschema rules](https://apis.io/rules/medrxiv/medrxiv-jsonschema-spectral-rules/)
+
+#### Security (1)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Medrxiv Domain Security](https://apis.io/security/medrxiv/medrxiv-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Plans](https://apis.io/plans/medrxiv/plans/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Rate Limits](https://apis.io/rate-limits/medrxiv/rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Finops](https://apis.io/finops/medrxiv/finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.medrxiv.org/)
+- [Blog](https://connect.medrxiv.org/medrxiv_xml.php?subject=all)
+- [Terms of service](https://www.medrxiv.org/about-medrxiv)
+
+## API Evangelist rating
+
+**Kin Score 26.0** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 54.5 |
+| Contract governance | 23.5 |
+| Operational transparency | 0.0 |
+| Developer ergonomics | 11.9 |
+| Access clarity | 5.3 |
+
+**Agent readiness 25.8** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | na |
+| MCP Server | — |
+| Auth Clarity | — |
+| Idempotency | na |
+| Error Semantics | — |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | na |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 8.6** — Health
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/medrxiv/](https://apis.io/providers/medrxiv/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for medRxiv: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/medrxiv/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
